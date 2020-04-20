@@ -1,0 +1,49 @@
+ {% extends "history/history_base.html" %} 
+ {% block topmenu %}
+<div class="pad-13 content-wrapper">
+    <div class="pos-7 content-wrapper"><a href="/history/electricity/minute" class="">minuten</a></div>
+    <div class="pos-7 content-wrapper"><a href="/history/electricity/hour" class="">uren</a></div>
+    <div class="pos-7 content-wrapper"><a href="/history/electricity/day" class="">dagen</a></div>
+    <div class="pos-7 content-wrapper"><a href="/history/electricity/month" class="">maanden</a></div>
+    <div class="pos-7 content-wrapper"><a href="/history/electricity/year" class="">jaren</a></div>
+</div>
+{% endblock %}
+
+<!-- Content -->
+{% block content %}
+<div class="mid-content-2 pad-13">
+    <!-- links -->
+    <div class="frame-2-top">
+        <span class="text-2">Electriciteit (kWh)</span>
+    </div>
+    <div class="frame-2-bot">
+        <div id="KwhChart" style="width:100%; height:480px;">
+
+            {{ chart_history }}
+        </div>
+        <div id="range_chart" style="width:100%; height:480px;">
+            <p>
+                <fieldset>
+                    <legend>Tijdsvak:</legend>
+                    <form id="form_id" method="post" enctype="multipart/form-data">{% csrf_token %}
+                        <label for="n_records_max">Maximaal aantal metingen:</label>
+                        <input name="n_records_max" type="number" step="1" value="1440" /><br>
+
+                        <label for="tmin">Begin datum:</label>
+                        <input name="tmin" id="tmin" type="date" value={{ date_min_records }} data-date-inline-picker="false" data-date-open-on-focus="true" />
+                        <label for="tmax">Eind datum:</label>
+                        <input name="tmax" id="tmax" type="date" value={{ date_max_records }} data-date-inline-picker="false" data-date-open-on-focus="true" /><br>
+                        <input type="submit" value="klik" />
+                    </form>
+                </fieldset>
+            </p>
+            <p>
+                {{ n_records }}
+            </p>
+            <p>
+                {{ msg }}
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
