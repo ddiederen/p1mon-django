@@ -1,0 +1,295 @@
+{% extends "base_head.html" %}{% load static %} {% block body %}
+
+<body>
+    <div class="top-wrapper">
+        <div class="content-wrapper">
+            <div class="content-wrapper">
+                <img class="pos-1" alt="ztatz logo" src="{% static 'p1mon/img/p1mon-logo.svg' %}" width="50" height="45">
+                <span class="text-1">P1 monitor</span>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="top-wrapper-2">
+        <div class="content-wrapper pad-13">
+            <!-- header 2 -->
+            <!-- start page clock -->
+            <div id="pageclock" class="pos-13 content-wrapper color-timer">
+                <span class="pos-28"></span>
+            </div>
+            <script>
+                var pageclockTimer;
+                // klok met uren en minuten laten zien
+                function clockLoop() {
+                    //console.log("clock");
+                    try {
+                        var elt = document.getElementById("pageclock");
+                        if (elt == null) {
+                            return;
+                        }
+                        var d = new Date();
+                        var time = "<span class='pos-28'>" + zeroPad(d.getHours(), 2) + "<b id='PageClockTicks'>:</b>" + zeroPad(d.getMinutes(), 2) + "</span>";
+                        elt.innerHTML = time;
+                        if ((d.getSeconds() % 2) === 0) {
+                            colorFader("#PageClockTicks", "#0C7DAD");
+                        }
+                        pageclockTimer = setTimeout(clockLoop, 1000); // Run again in 1 second
+                    } catch (err) {
+                        console.log(err);
+                    }
+                }
+                clockLoop();
+            </script>
+            <!-- end page clock -->
+
+            {% block topmenu %}
+            <div class="pad-13 content-wrapper">
+                <div class="pos-7 content-wrapper ">
+                    <a href="/main-1" class="">verbruik & levering</a>
+                </div>
+                <div class="pos-7 content-wrapper">
+                    <a href="/main-2" class="">verbruik</a>
+                </div>
+            </div>
+            {% endblock %}
+        </div>
+    </div>
+
+
+    <div class="mid-section">
+        <div class="left-wrapper">
+            <div class="menu-left">
+                <a id="menu0" href="/serialdata/live/elecgas/">
+                    <span class="fa-layers frame-1-top">
+                        <i class="fas fa-home" data-fa-transform="grow-18"></i>
+                    </span>
+                </a>
+                <!-- <a id="menu6" href="/serialdata/today/">
+                    <span class="fa-layers fa-gw frame-1-mid ">
+                        <i class="fas fa-signal" data-fa-transform="grow-18"></i>
+                        <i class="far fa-clock" data-fa-transform="grow-2 left-9 up-7"></i>
+                    </span>
+                </a> -->
+                <a id="menu1" href="/history/electricity/day">
+                    <span class="fa-layers fa-gw frame-1-mid ">
+                        <i class="fas fa-signal" data-fa-transform="grow-18"></i>
+                        <i class="fas fa-bolt" data-fa-transform="grow-6 left-8 up-7"></i>
+                    </span>
+                </a>
+                <a id="menu5" href="/history/gas/day">
+                    <span class="fa-layers fa-gw frame-1-mid ">
+                        <i class="fas fa-signal" data-fa-transform="grow-18"></i>
+                        <i class="fab fa-gripfire" data-fa-transform="grow-10 left-8 up-7"></i>
+                    </span>
+                </a>
+                <a id="menu4" href="/history/costs/day">
+                    <span class="fa-layers fa-gw frame-1-mid ">
+                        <i class="fas fa-euro-sign" data-fa-transform="grow-18 left-2"></i>
+                    </span>
+                </a>
+                <a id="menu3" href="/info">
+                    <span class="fa-layers frame-1-mid ">
+                        <i class="fas fa-info-circle" data-fa-transform="grow-18"></i>
+                    </span>
+                </a>
+                <a id="menu2" href="/admin">
+                    <span class="fa-layers frame-1-bot ">
+                        <i class="fas fa-wrench" data-fa-transform="grow-18"></i>
+                    </span>
+
+                </a>
+            </div>
+            <!-- <script>
+                if (getLocalStorage('main-menu') !== null) {
+                    $('#menu0').attr('href', getLocalStorage('main-menu'));
+                }
+                if (getLocalStorage('stats-menu') !== null) {
+                    $('#menu1').attr('href', getLocalStorage('stats-menu'));
+                }
+                if (getLocalStorage('cost-menu') !== null) {
+                    $('#menu4').attr('href', getLocalStorage('cost-menu'));
+                }
+                if (getLocalStorage('stats-menu-gas') !== null) {
+                    $('#menu5').attr('href', getLocalStorage('stats-menu-gas'));
+                }
+                if (getLocalStorage('actual-menu') !== null) {
+                    $('#menu6').attr('href', getLocalStorage('actual-menu'));
+                }
+                if (getLocalStorage('verwarming-menu') !== null) {
+                    $('#menu7').attr('href', getLocalStorage('verwarming-menu'));
+                }
+            </script> -->
+
+            <div id="timerText" class="pos-8 color-timer"></div>
+            <!-- full screen code -->
+            <div id="fscr_request" class="pos-41">
+                <div class="text-22">
+                    <i id="fscr_icon" class="fas fa-expand" data-fa-transform="grow-8 right-16"></i>
+                </div>
+            </div>
+            <script>
+                var md = new MobileDetect(window.navigator.userAgent);
+                if (md.mobile() == null) { // not a mobile device.
+                    showStuff('fscr_request');
+                }
+                $('#fscr_request').click(function () {
+                    screenfull.toggle($(document.body)[0]);
+                    if (screenfull.isFullscreen) {
+                        $('#fscr_icon').removeClass("fa-compress");
+                        $('#fscr_icon').addClass("fa-expand");
+                        $("html").css("background-color", "#dddddd");
+                        $("body").css("background-color", "#dddddd");
+                    } else {
+                        $('#fscr_icon').removeClass("fa-expand");
+                        $('#fscr_icon').addClass("fa-compress");
+                        $("html").css("background-color", "#EDF0F1");
+                        $("body").css("background-color", "#EDF0F1");
+                    }
+                });
+            </script>
+            <!-- end of full screen code -->
+        </div>
+
+        {% block content %}
+        <div class="mid-content">
+            <!-- links -->
+            <div class="frame-2-top">
+                <span class="text-2">elektrisch verbruik</span>
+            </div>
+            <div class="frame-2-bot">
+                <div class="pos-2" id="actVermogenMeterVerbruik"></div>
+                <div class="pos-3 pad-2">
+                    <div class="frame-3-top">
+                        <span id="verbruikPiekHeader" class="text-3">meterstand</span>
+                    </div>
+                    <div class="frame-2-bot">
+                        <div title="Dit is de 1.8.2 waarde ook wel hoog/piek/dag/tarief 2 genoemd">
+                            <span class="fa-layers fa-fw text-4">
+                                <i class="fas fa-euro-sign" data-fa-transform="left-4"></i>
+                                <i class="fas fa-long-arrow-alt-up" data-fa-transform="right-4 shrink-1"></i>
+                            </span>
+                            <span id="verbruikPiek" class="text-4"></span>
+                            <br>
+                        </div>
+                        <div title="Dit is de 1.8.1 waarde ook wel laag/dal/nacht/tarief 1 genoemd">
+                            <span class="fa-layers fa-fw text-4">
+                                <i class="fas fa-euro-sign" data-fa-transform="left-4"></i>
+                                <i class="fas fa-long-arrow-alt-down" data-fa-transform="right-4 shrink-1"></i>
+                            </span>
+                            <span id="verbruikDal" class="text-4 "></span>
+                        </div>
+                    </div>
+                    <div class="pad-14"></div>
+                    <div class="frame-3-top">
+                        <span id="verbruikDalHeader" class="text-3">vandaag</span>
+                    </div>
+                    <div class="frame-2-bot">
+
+
+                        <span id="verbruikPiekI" class="fa-layers fa-fw text-4">
+                            <i class="fas fa-euro-sign" data-fa-transform="left-4"></i>
+                            <i class="fas fa-long-arrow-alt-up" data-fa-transform="right-4 shrink-1"></i>
+                        </span>
+
+                        <span id="verbruikPiekKW" class="text-4"></span>
+                        <br>
+
+                        <span id="verbruikDalI" class="fa-layers fa-fw text-4">
+                            <i class="fas fa-euro-sign" data-fa-transform="left-4"></i>
+                            <i class="fas fa-long-arrow-alt-down" data-fa-transform="right-4 shrink-1"></i>
+                        </span>
+
+                        <span id="verbruikDalKW" class="text-4"></span>
+                        <br>
+                        <i class="pad-6 text-4 far fa-clock">&nbsp;</i>&nbsp;
+                        <span id="maxkWPiekVerbruikDatum" class="text-4"></span>&nbsp;
+                        <span>
+                            <i class="pad-6 text-4 fas fa-arrow-circle-up">&nbsp;</i>&nbsp;</span>
+                        <span id="maxkWPiekVerbruikWaarde" class="text-4"></span>
+                    </div>
+                    <div class="pad-14"></div>
+                    <div class="frame-3-top">
+                        <span class="text-3">totaal vandaag</span>
+                    </div>
+                    <div class="frame-2-bot">
+                        <i class="pad-6 text-4 fa fa-bolt"></i>&nbsp;
+                        <span id="verbruikDalEnPiekKW" class="text-4 pad-6"></span>
+                        <br>
+                        <i class="text-4 fas fa-euro-sign"></i>&nbsp;
+                        <span id="verbruikKosten" class="text-4 pad-6"></span>
+                        <!-- check dat het alleen E kosten zijn -->
+                    </div>
+                </div>
+
+                <div class="pad-3" style="float:left;">
+                    <div class="frame-3-top">
+                        <span class="text-3">kW verbruikt</span>
+                    </div>
+                    <div class="frame-2-bot">
+                        <div id="actVermogenMeterGrafiekVerbruik" class="pos-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- rechts -->
+        <div class="right-wrapper pad-1">
+            <div class="frame-2-top">
+                <span class="text-2">gas verbruik</span>
+            </div>
+            <div class="frame-2-bot">
+                <div class="pos-2" id="actGasMeterVerbruik"></div>
+                <div class="pos-3 pad-2">
+                    <div class="frame-3-top">
+                        <span id="verbruikGasHeader" class="text-3">meterstand</span>
+                    </div>
+                    <div class="frame-2-bot">
+                        <i class="pad-18 text-4 fab fa-gripfire">&nbsp;</i>&nbsp;
+                        <span id="verbruikDGas" class="text-4 pad-6"></span>
+                        <span class="text-4"> m
+                            <sup>3</sup>
+                        </span>
+                    </div>
+                    <div class="pad-14"></div>
+                    <div class="frame-3-top">
+                        <span id="geleverdDalHeader" class="text-3">vandaag</span>
+                    </div>
+                    <div class="frame-2-bot">
+                        <i class="text-4 fab fa-gripfire"></i>&nbsp;
+                        <span id="verbruikGasDag" class="text-4"></span>
+                        <span class="text-4"> m
+                            <sup>3</sup>
+                        </span>
+                        <br>
+                        <i class="pad-6 text-4 fas fa-euro-sign"></i>&nbsp;
+                        <span id="verbruikGasKosten" class="text-4"></span>
+                    </div>
+                    <div class="pad-14"></div>
+                    <div id="gasVoorspelling" style="display: none">
+                        <div class="frame-3-top">
+                            <span class="text-24 color-contrast-1">voorspelling actief</span>
+                        </div>
+                        <div class="frame-2-bot">
+                            <i class="text-23 color-warning fab fa-gripfire"></i>&nbsp;
+                            <span class="text-4">Als de gaswaarde voor het huidig uur nog niet bekend is dan wordt de volgende waarde geschat.</span>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+                <div class="pad-3" style="float:left;">
+                    <div class="frame-3-top">
+                        <span class="text-3">gas verbruikt</span>
+                    </div>
+                    <div class="frame-2-bot">
+                        <div id="actGasMeterGrafiekVerbruikt" class="pos-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+</body>
+{% endblock %}

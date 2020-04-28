@@ -1,0 +1,49 @@
+<!DOCTYPE html> {% load static %}
+<html lang="nl">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="{% static 'p1mon/img/favicon.ico' %}" type="image/x-icon" />
+
+    <!-- Title -->
+    {% block title %}
+    <title>Diederen: P1monitor</title>
+    {% endblock %}
+
+    <!-- Static -->
+    {% block static %}
+    <!-- Stuff -->
+    <script src="{% static 'p1mon/js/all.js' %}"></script>
+    <script src="{% static 'p1mon/js/p1mon-util.js' %}"></script>
+    <script src="{% static 'p1mon/js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'p1mon/js/jquery.backtotop.js' %}"></script>
+    <script src="{% static 'p1mon/js/jquery.mobilemenu.js' %}"></script>
+    <script src="{% static 'p1mon/js/jquery.placeholder.min.js' %}"></script>
+    <script src="{% static 'p1mon/js/mobile-detect.min.js' %}"></script>
+    <script src="{% static 'p1mon/js/screenfull.min.js' %}"></script>
+
+    <!-- Graphs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.3"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script> -->
+    <script src="{% static 'p1mon/js/gauge.js' %}"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" media="all" href="{% static 'p1mon/css/p1mon.css' %}" />
+    <link rel="stylesheet" type="text/css" media="all" href="{% static 'p1mon/css/roboto.css' %}" />
+
+    <!-- endblock -->
+    {% endblock %}
+</head>
+
+{% block body %}
+    {% block content %}
+    {% endblock %}
+{% endblock %}
+
+</html>

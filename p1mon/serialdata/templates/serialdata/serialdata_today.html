@@ -1,0 +1,60 @@
+{% extends "serialdata/serialdata_base.html" %} 
+
+{% block topmenu %}
+{% endblock %} 
+
+{% block content %}
+<div id="graphs">
+</div>
+
+{{ config.THE_ANSWER }}
+
+<script>
+  function DataLoopTimer(nSecsMax, urlAsync) {
+    if (typeof secs === 'undefined') {
+    // secs is undefined
+    secs = 0
+    }
+    
+    
+    console.log(secs)
+    console.log(nSecsMax)
+    console.log(urlAsync)
+
+    secs--;
+    if (secs < 0) {
+      // action
+      $.ajax({
+        url: urlAsync,
+        success: function (data) {
+          $('#graphs').html(data);
+          window.document.dispatchEvent(new Event("DOMContentLoaded", {
+            bubbles: true,
+            cancelable: true
+          }));
+        }
+      })
+
+      // reset counter
+      secs = nSecsMax;
+
+      // DataLoopTimer(secs=secs,nSecsMax=nSecsMax)
+    }
+
+    // adjust countdown timer
+    document.getElementById("timerText").innerHTML = "00:" + zeroPad(secs, 2);
+    
+    // call function again (weird loop construction?)
+    // setTimeout(function(){DataLoopTimer(nSecsMax = nSecsMax, urlAsync=urlAsync);}, 1000);
+  }
+
+  $(function () {
+    // load loop
+    var nSecsMax = 60;
+    var secs = nSecsMax;
+    var urlAsync = '{% url "serialdata_today_charts" %}';
+    DataLoopTimer(nSecsMax = nSecsMax, urlAsync=urlAsync);
+  });
+
+</script>
+{% endblock %}

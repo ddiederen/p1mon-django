@@ -1,0 +1,42 @@
+{% extends "base_generic.html" %} 
+
+{% block content %}
+<div class="wrapper row3">
+  <main class="hoc container clear">
+    <div class="content">
+
+      {% if form.errors %}
+      <p>Uw gebruikersnaam en wachtwoord komen niet overeen. Probeert u het alstublieft opnieuw.</p>
+      {% endif %} {% if next %} {% if user.is_authenticated %}
+      <p>U heeft geen toegang tot deze pagina.</p>
+      {% else %}
+      <p>Meldt u zich alstublieft aan om deze pagina te bekijken.</p>
+      {% endif %} {% endif %}
+
+      <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <table>
+
+          <tr>
+            <td>{{ form.username.label_tag }}</td>
+            <td>{{ form.username }}</td>
+          </tr>
+
+          <tr>
+            <td>{{ form.password.label_tag }}</td>
+            <td>{{ form.password }}</td>
+          </tr>
+        </table>
+
+        <input type="submit" value="Aanmelden" />
+        <input type="hidden" name="next" value="{{ next }}" />
+      </form>
+
+      {# Assumes you setup the password_reset view in your URLconf #}
+      <p><a href="{% url 'password_reset' %}">Wachtwoord vergeten?</a></p>
+    </div>
+    <div class="clear"></div>
+  </main>
+</div>
+
+{% endblock %}
