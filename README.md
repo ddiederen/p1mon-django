@@ -12,14 +12,14 @@ Calculations were replaced with data table operations using pandas.
 # Installation guidelines 
 (e.g. raspberry pi)
 
-1. Set up the django test webserver (terminal1):
+1. Set up the django test webserver (terminal 1):
 - set up a python3 environment
 - install the python3 virtual environment (pip install requirements.txt )
 - migrate the data bases (python migrate.py)
 - create a super user (python manage.py createsuperuser)
 - run webserver (python manage.py runserver 0.0.0.0:8000)
 
-2. Read data from your smart meter (terminal2):
+2. Read data from your smart meter (terminal 2):
 - connect the usb to p1 cable to your smart meter
 - read the p1 connection and store in SQL database (python p1mon_serReader_dork_min.py)
 
