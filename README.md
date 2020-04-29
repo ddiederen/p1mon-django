@@ -27,7 +27,9 @@ Calculations were replaced with data table operations using pandas.
 
 4. Visit your testserver at <ip_address>:8000 or localhost:8000 (web browser). 
 
-5. Deploy the webserver properly (e.g. nginx + uwsgi)
+5. Upgrades (optional)
+- Deploy the webserver properly (e.g. nginx + uwsgi)
+- Replace the SQLite databases with postgreSQL databases - since eventually the databases may become a bit large for SQLite.
 
 # Development
 Enjoy!
