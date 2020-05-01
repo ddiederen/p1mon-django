@@ -1,7 +1,7 @@
 #%% Libraries  
 from django.db.models import Sum
 
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from datetime import datetime, timedelta, date
 
 from constance import config
