@@ -243,7 +243,7 @@ ser1.port="/dev/ttyUSB0"
 funOpenSerial()
 
 # open sqlite data base
-db_serial = sqlite3.connect('/home/p1mon/p1mon/serialdata/serialdata.db')
+db_serial = sqlite3.connect('serialdata/serialdata.db')
 cur_serial = db_serial.cursor()
 
 # loop read serial connection
